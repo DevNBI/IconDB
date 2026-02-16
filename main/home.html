@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home</title>
+<link rel="icon" href="https://devnbi.github.io/NexusByte-Icons/assets/media/branding/logo.png">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{background:#141414;color:#fff;font-family:Arial,Helvetica,sans-serif}
+nav{width:100%;background:#1e1e1e;border-bottom:1px solid #333;display:flex;justify-content:space-evenly;align-items:center;padding:14px 0}
+nav img{width:26px;height:26px;cursor:pointer;transition:.2s}
+nav img:hover{opacity:.7}
+.main{width:98%;margin:20px auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.tile{border:1px solid #333;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px}
+.tile img{width:54px;height:54px;filter:brightness(0) invert(1)}
+.space{height:18px}
+.btns{display:flex;flex-direction:column;gap:10px;width:100%}
+button{background:#1e1e1e;border:none;color:#fff;border-radius:10px;padding:10px;cursor:pointer;transition:.2s}
+button:hover{background:#2a2a2a}
+.picker{position:fixed;inset:0;background:#00000080;display:none;align-items:center;justify-content:center}
+.box{background:#1e1e1e;border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:14px}
+input[type=color]{appearance:none;border:none;width:220px;height:120px;border-radius:14px;background:none;cursor:pointer}
+@media(max-width:600px){.main{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav>
+<img src="https://devnbi.github.io/NexusByte-Icons/assets/media/icons/home.png" onclick="location.href='https://devnbi.github.io/NexusByte-Icons/main/home.html'">
+<img src="https://devnbi.github.io/NexusByte-Icons/assets/media/icons/search.png" onclick="location.href='https://devnbi.github.io/NexusByte-Icons/main/search.html'">
+<img src="https://devnbi.github.io/NexusByte-Icons/assets/media/icons/information.png" onclick="location.href='https://devnbi.github.io/NexusByte-Icons/main/information.html'">
+</nav>
+<div class="main" id="grid"></div>
+<div class="picker" id="picker">
+<div class="box">
+<input type="color" id="color">
+<button onclick="apply()">Apply</button>
+<button onclick="closePicker()">Close</button>
+</div>
+</div>
+<script>
+let current=null
+fetch('https://devnbi.github.io/NexusByte-Icons/assets/data/indexing.json').then(r=>r.json()).then(data=>{
+const grid=document.getElementById('grid')
+data.forEach(url=>{
+const t=document.createElement('div')
+t.className='tile'
+t.innerHTML=`<img src="${url}"><div class="space"></div><div class="btns"><button>Change Colour</button><button>Download</button></div>`
+grid.appendChild(t)
+const img=t.querySelector('img')
+t.querySelector('button:nth-child(1)').onclick=()=>openPicker(img)
+t.querySelector('button:nth-child(2)').onclick=()=>download(img)
+})
+})
+function openPicker(img){current=img;document.getElementById('picker').style.display='flex'}
+function closePicker(){document.getElementById('picker').style.display='none'}
+function apply(){const c=document.getElementById('color').value;current.style.filter=`brightness(0) saturate(100%) invert(1) drop-shadow(0 0 0 ${c})`;closePicker()}
+function download(img){const canvas=document.createElement('canvas');const ctx=canvas.getContext('2d');const temp=new Image();temp.crossOrigin='anonymous';temp.onload=()=>{canvas.width=temp.width;canvas.height=temp.height;ctx.drawImage(temp,0,0);const data=canvas.toDataURL('image/png');const a=document.createElement('a');a.href=data;a.download='icon.png';a.click()};temp.src=img.src}
+</script>
+</body>
+</html>
