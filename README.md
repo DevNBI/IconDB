@@ -17,6 +17,6 @@ As mentioned above, we ***do not*** own or claim to own rights to the icons foun
 - Use icons from more sources (Google Fonts, Icons8, etc)
 - Add more icon styles (filled, sharp, etc)
 - Redesign the website
-- Improve indexing
-- Add more format support
-- Add size support
+- ~~Improve indexing~~
+- ~~Add more format support~~
+- ~~Add size support~~
