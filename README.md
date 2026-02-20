@@ -21,6 +21,18 @@ If you have your own icons or any that you'd like us to add to this repository, 
 
 ---
 
+### To-Do List
+- Add pre-loader
+- Add home-page
+- Add search page
+- Add information page
+- Add icons explore page
+- Add icons sources pages
+- Add icon indexing
+- Add website metadata
+
+---
+
 ### Content & Issues
 If you own any of the icons found on ***IconDB*** and wish for them to be removed, please open an issue or get in contact. We will need to see proof that you're the creator before we take any action.  
 
